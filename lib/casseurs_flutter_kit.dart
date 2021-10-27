@@ -7,6 +7,7 @@ export './models/stream_value.dart';
 ////////// UTILS ////////// 
 export './utils/alerts.dart';
 export './utils/strings.dart';
+export './utils/colors.dart';
 
 ////////// WIDGETS ////////// 
 export './widgets/section_list_view.dart';
