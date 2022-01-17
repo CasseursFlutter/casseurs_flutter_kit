@@ -8,7 +8,8 @@ export './models/stream_value.dart';
 export './utils/alerts.dart';
 export './utils/strings.dart';
 export './utils/colors.dart';
-export 'utils/iterable.dart';
+export './utils/iterable.dart';
+export './utils/action_sheets.dart';
 
 ////////// WIDGETS ////////// 
 export './widgets/section_list_view.dart';
