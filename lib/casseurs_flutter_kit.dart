@@ -10,6 +10,7 @@ export './utils/strings.dart';
 export './utils/colors.dart';
 export './utils/iterable.dart';
 export './utils/action_sheets.dart';
+export './utils/images.dart';
 
 ////////// WIDGETS ////////// 
 export './widgets/section_list_view.dart';
