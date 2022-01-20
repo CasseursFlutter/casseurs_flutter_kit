@@ -13,3 +13,8 @@ String eachWordCapitalized(String value) {
   final words = value.split(' ').map((e) => capitalized(e));
   return words.join(' ');
 }
+
+String nonBreaking(String value) {
+  const int $nbsp = 0x00A0;
+  return value.replaceAll(' ', String.fromCharCode($nbsp));
+}
