@@ -55,32 +55,95 @@ Future<void> showActionSheet({
       }
     );
   } else {
+    const buttonTextStyle = TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w600
+    );
+
     return showModalBottomSheet(
       context: context,
-      builder: (modalContext) {
-        return Container(
-          child: Column(
-            children: [
-              title,
-              if (message != null)
-                Text(message),
-              if (actions != null)
-                ...actions.map((e) {
-                  return TouchableOpacity(
-                    onPressed: e.onPressed,
-                    child: Row(
+      backgroundColor: Colors.transparent,      
+      builder: (modalContext) {        
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 16
+              ),
+              color: Colors.white,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                      bottom: 16
+                    ),
+                    child: Column(
                       children: [
-                        if (e.icon != null) e.icon!,
-                        Expanded(
-                          child: Text(e.title)
-                        )
+                        title,
+                        if (message != null)
+                          ...[
+                            const SizedBox(height: 8,),
+                            Text(message,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey
+                              ),
+                            ),
+                          ]                          
                       ],
-                    )
-                  );
-                }).toList()
-            ],
-          ),
-        );
+                    ),
+                  ),                                    
+                  if (actions != null)
+                    ...IterableUtils.addBetweenEach(
+                      actions.map((e) {
+                        return TouchableOpacity(
+                          onPressed: e.onPressed,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Row(
+                              children: [
+                                if (e.icon != null) e.icon!,
+                                Expanded(
+                                  child: Text(
+                                    e.title,
+                                    textAlign: TextAlign.center,
+                                    style: buttonTextStyle
+                                  )
+                                )
+                              ],
+                            ),
+                          )                                                    
+                        );
+                      }),
+                      element: const SizedBox(height: 8,)
+                    ).toList()
+                ],
+              ),
+            ),
+            if (cancelAction != null)
+              ...[
+                const SizedBox(height: 16,),
+                TouchableOpacity(
+                  onPressed: () {
+                    cancelAction.onPressed?.call();
+                    Navigator.of(modalContext).pop();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    color: Colors.white,
+                    child: Text(cancelAction.title,
+                      textAlign: TextAlign.center,
+                      style: buttonTextStyle,
+                    ),
+                  ),
+                )
+              ]
+          ],
+        );                                 
       }
     );
   }
