@@ -3,23 +3,46 @@ import 'package:flutter/material.dart';
 const _defaultSeparator = ":";
 
 class TimeUtils {
-  static String format(int hour, int minute, { String? separator }) {
-    return "${hour.toString().padLeft(2, '0')}${separator ?? _defaultSeparator}${minute.toString().padLeft(2, '0')}";
+  static String format(int hour, int minute, int second, { String? separator, bool showHour = true, bool showMinute = true, bool showSecond = true }) {
+    final List<String> elements = [];
+    if (showHour) {
+      elements.add(hour.toString().padLeft(2, '0'));
+    }
+
+    if (showMinute) {
+      elements.add(minute.toString().padLeft(2, '0'));
+    }
+
+    if (showSecond) {
+      elements.add(second.toString().padLeft(2, '0'));
+    }
+
+
+    return elements.join(separator ?? _defaultSeparator);
   }
 
   static String formatDateTime(DateTime date, { String? separator }) {
-    return format(date.hour, date.minute, separator: separator);
+    return format(date.hour, date.minute, date.second, separator: separator, showSecond: false);
   }
 
   static String formatTimeOfDay(TimeOfDay time, { String? separator }) {
-    return format(time.hour, time.minute, separator: separator);
+    return format(time.hour, time.minute, 0, separator: separator, showSecond: false);
   }
 
-  static String formatDuration(Duration duration, { String? separator }) {
+  static String formatDuration(Duration duration, { String? separator, bool showHour = true, bool showMinute = true, bool showSecond = true }) {
     final hour = duration.inHours;
-    final minute = duration.inMinutes - hour*60;
+    int minute = duration.inMinutes;
+    
+    if (showHour) {
+      minute -= hour*60;
+    }
 
-    return format(hour, minute, separator: separator);
+    int second = duration.inSeconds;
+    if (showMinute) {
+      second -= duration.inMinutes*60;
+    }
+
+    return format(hour, minute, second, separator: separator, showHour: showHour, showMinute: showMinute, showSecond: showSecond);
   }
 
   static TimeOfDay parseDateTime(DateTime date) {
