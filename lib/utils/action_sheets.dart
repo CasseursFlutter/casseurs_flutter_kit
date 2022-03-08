@@ -22,7 +22,7 @@ class ActionSheetAction {
 
 Future<void> showActionSheet({
   required BuildContext context,
-  required Widget title,
+  Widget? title,
   String? message,
   List<ActionSheetAction>? actions,
   ActionSheetAction? cancelAction
@@ -82,7 +82,8 @@ Future<void> showActionSheet({
                     ),
                     child: Column(
                       children: [
-                        title,
+                        if (title != null)
+                          title,
                         if (message != null)
                           ...[
                             const SizedBox(height: 8,),
