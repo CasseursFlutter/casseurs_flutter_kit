@@ -51,4 +51,11 @@ class TimeUtils {
       minute: date.minute
     );
   }
+
+  static Duration difference(TimeOfDay a, TimeOfDay b) {
+    final aMinutes = a.hour*60+a.minute;
+    final bMinutes = b.hour*60+b.minute;
+
+    return Duration(minutes: bMinutes-aMinutes);
+  }
 }

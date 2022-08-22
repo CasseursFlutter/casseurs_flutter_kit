@@ -32,5 +32,5 @@ class GeoUtils {
     final longitude = latLng.longitude + (dLong / earthRadius) * (180 / pi) / cos(latLng.latitude * pi/180);
 
     return LatLng(latitude, longitude);
-  }  
+  }
 }

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:casseurs_flutter_kit/models/paginated_list_state.dart';
+
 class StreamValue<T> {
   late T _value;
   T get value => _value;
@@ -50,5 +52,59 @@ class StreamListValue<T> extends StreamValue<List<T>> {
       _value[index] = value;
       _controller.add(_value);
     }
+  }
+}
+
+class StreamPaginatedListValueState<T> {
+  final bool fetching;
+  final PaginatedList<T> list;
+
+  const StreamPaginatedListValueState({
+    this.fetching = false,
+    this.list = const PaginatedList()
+  });
+
+  get items => null;
+
+  StreamPaginatedListValueState<T> copyWith({
+    bool? fetching,
+    PaginatedList<T>? list
+  }) {
+    return StreamPaginatedListValueState<T>(
+      fetching: fetching ?? this.fetching,
+      list: list ?? this.list
+    );
+  }
+}
+
+class StreamPaginatedListValue<T> extends StreamValue<StreamPaginatedListValueState<T>> {
+  StreamPaginatedListValue({required StreamPaginatedListValueState<T> value}) : super(value);
+
+  factory StreamPaginatedListValue.empty() {
+    return StreamPaginatedListValue(value: StreamPaginatedListValueState<T>());
+  }
+
+  void setFetching(bool fetching) {
+    set(value.copyWith(fetching: fetching));
+  }
+
+  void setList(PaginatedList<T> list, { bool fetching = false }) {
+    set(
+      value.copyWith(
+        fetching: fetching,
+        list: list
+      )
+    );
+  }
+
+  void addList(PaginatedList<T> list, { bool fetching = false }) {
+    set(
+      value.copyWith(
+        fetching: fetching,
+        list: list.copyWith(
+          items: [...value.list.items, ...list.items]
+        )
+      )
+    );
   }
 }

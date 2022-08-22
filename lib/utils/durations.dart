@@ -1,5 +1,5 @@
 class DurationUtils {
-  static String format(Duration duration, { String dayUnit = "j", String hourUnit = "h", String minuteUnit = "m"}) {    
+  static String format(Duration duration, { String dayUnit = "j", String hourUnit = "h", String minuteUnit = "min"}) {    
     final List<String> elements = [];
 
     final day = duration.inDays;

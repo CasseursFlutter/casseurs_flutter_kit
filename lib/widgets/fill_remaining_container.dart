@@ -9,13 +9,18 @@ class FillRemainingContainer extends StatelessWidget {
 
   final ScrollPhysics? physics;
 
+  final bool bottomSafeArea;
+  final bool topSafeArea;
+
   const FillRemainingContainer({
     Key? key,
     required this.child,
     this.hasScrollBody = false,
     this.horizontalPadding = 16,
     this.verticalPadding = 16,
-    this.physics
+    this.physics,
+    this.bottomSafeArea = true,
+    this.topSafeArea = true
   }) : super(key: key);
 
   @override
@@ -25,7 +30,9 @@ class FillRemainingContainer extends StatelessWidget {
       slivers: [
         SliverFillRemaining(
           hasScrollBody: hasScrollBody,
-          child: SafeArea(
+          child: SafeArea(          
+            bottom: bottomSafeArea,  
+            top: topSafeArea,
             child: Padding(
               padding: EdgeInsets.only(
                 left: horizontalPadding,

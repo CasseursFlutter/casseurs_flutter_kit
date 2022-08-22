@@ -1,7 +1,15 @@
+import '../casseurs_flutter_kit.dart';
+
 class MapUtils {
   static writeNotNull(Map<String, dynamic> data, String key, dynamic value) {
     if (value != null) {
       data[key] = value;
+    }
+  }
+
+  static writeNotNullNullable(Map<String, dynamic> data, String key, Nullable? nullable) {
+    if (nullable != null) {
+      data[key] = nullable.value;
     }
   }
 

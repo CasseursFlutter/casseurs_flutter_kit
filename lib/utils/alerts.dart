@@ -16,7 +16,7 @@ class AlertDialogAction {
 Future<void> showAlertDialog({
   required BuildContext context,
   required String title,
-  String? content,
+  dynamic? content,  
   List<AlertDialogAction>? actions,
   Function(BuildContext context)? onBuild
 }) async {
@@ -30,7 +30,11 @@ Future<void> showAlertDialog({
         onBuild?.call(context);
         return CupertinoAlertDialog(
           title: Text(title),
-          content: content != null ? Text(content) : null,
+          content: content != null
+            ? content is String
+              ? Text(content)
+              : content
+            : null,
           actions: actionList.map((action) => CupertinoDialogAction(
             child: Text(action.title),
             onPressed: () {
