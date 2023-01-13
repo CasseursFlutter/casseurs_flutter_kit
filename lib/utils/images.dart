@@ -33,10 +33,10 @@ void _decodeIsolate(_DecodeParam param) async {
 
         if (targetRatio > sourceRatio) {
           final height = sourceWidth~/targetRatio;
-          image = ImageUtils.copyCrop(image, 0, (sourceHeight-height)~/2, sourceWidth, height);          
+          image = ImageUtils.copyCrop(image, x: 0, y: (sourceHeight-height)~/2, width: sourceWidth, height: height);          
         } else if (targetRatio < sourceRatio) {
           final width = (sourceHeight*targetRatio).round();
-          image = ImageUtils.copyCrop(image, (sourceWidth-width)~/2, 0, width, sourceHeight);          
+          image = ImageUtils.copyCrop(image, x: (sourceWidth-width)~/2, y: 0, width: width, height: sourceHeight);          
         }
 
         final thumb = ImageUtils.copyResize(image, width: targetWidth, height: targetHeight);
