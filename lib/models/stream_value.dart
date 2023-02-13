@@ -64,8 +64,6 @@ class StreamPaginatedListValueState<T> {
     this.list = const PaginatedList()
   });
 
-  get items => null;
-
   StreamPaginatedListValueState<T> copyWith({
     bool? fetching,
     PaginatedList<T>? list
