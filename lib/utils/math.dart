@@ -156,7 +156,7 @@ class Vector2Utils {
   }
 }
 
-
+bool isInteger(num value) => value is int || value == value.roundToDouble();
 // (x - center.x)^2 + (y - center.y)^2 = r^2
 // class Circle2D {
 //   final Point2D center;

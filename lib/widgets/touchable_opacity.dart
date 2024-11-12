@@ -4,7 +4,7 @@ class TouchableOpacity extends StatefulWidget {
   final Widget child;
   final Function? onPressed;
   final double activeOpacity;
-
+  
   const TouchableOpacity({
     Key? key,
     required this.child,

@@ -12,4 +12,8 @@ class IterableUtils {
 
     return list;
   }
+
+  static bool equals<T>(Iterable<T> A, Iterable<T> B) {
+    return A.every((el) => B.contains(el)) && A.length == B.length;
+  }
 }

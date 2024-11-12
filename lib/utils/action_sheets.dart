@@ -44,8 +44,8 @@ Future<void> showActionSheet({
             : null,          
           actions: actions?.map((e) => CupertinoActionSheetAction(
             onPressed: () {
-              e.onPressed?.call();
               Navigator.of(modalContext).pop();
+              e.onPressed?.call();              
             },
             child: Text(e.title),
             isDefaultAction: e.isDefault,

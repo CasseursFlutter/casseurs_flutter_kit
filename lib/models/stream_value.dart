@@ -30,6 +30,16 @@ class StreamListValue<T> extends StreamValue<List<T>> {
     _controller.add(_value);
   }
 
+  void insert(int index, T value) {
+    _value.insert(index, value);
+    _controller.add(_value);
+  }
+
+  void replaceAt(int index, T value) {
+    _value[index] = value;
+    _controller.add(_value);
+  }
+
   void removeWhere(bool Function(T element) test) {
     _value.removeWhere(test);
     _controller.add(_value);

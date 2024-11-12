@@ -22,3 +22,26 @@ class ExpandableSeparator extends StatelessWidget {
     );
   }
 }
+
+class ExpandableHorizontalSeparator extends StatelessWidget {
+  final int flex;
+  final double minWidth;
+
+  const ExpandableHorizontalSeparator({
+    Key? key,
+    this.flex = 1,
+    this.minWidth = 0
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: flex,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: minWidth
+        ),
+      )
+    );
+  }
+}
