@@ -62,26 +62,28 @@ class DecimalTextInputFormatter extends TextInputFormatter {
     TextEditingValue newValue,
   ) {
     TextSelection newSelection = newValue.selection;
-    String truncated = newValue.text;
-
+        
+    String value = newValue.text.replaceAll(',', '.');
     
-    String value = newValue.text;
-
-    if (value.contains(".") &&
-        value.substring(value.indexOf(".") + 1).length > decimalRange) {
-      truncated = oldValue.text;
+    value = value.replaceAll(RegExp(r'[^0-9.]'), "");
+    value = value.replaceAllMapped(".", (match) {
+      return match.start == value.indexOf(".") ? "." : "";
+    });
+    
+    if (value.contains(".") && value.substring(value.indexOf(".") + 1).length > decimalRange) {
+      value = oldValue.text;
       newSelection = oldValue.selection;
     } else if (value == ".") {
-      truncated = "0.";
+      value = "0.";
 
       newSelection = newValue.selection.copyWith(
-        baseOffset: math.min(truncated.length, truncated.length + 1),
-        extentOffset: math.min(truncated.length, truncated.length + 1),
+        baseOffset: math.min(value.length, value.length + 1),
+        extentOffset: math.min(value.length, value.length + 1),
       );
     }
 
     return TextEditingValue(
-      text: truncated,
+      text: value,
       selection: newSelection,
       composing: TextRange.empty,
     );    
