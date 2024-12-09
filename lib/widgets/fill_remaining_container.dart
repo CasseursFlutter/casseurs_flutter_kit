@@ -2,26 +2,20 @@ import 'package:flutter/material.dart';
 
 class FillRemainingContainer extends StatelessWidget {
   final bool hasScrollBody;
+  
+  final EdgeInsets? padding;
   final Widget child;
   
-  final double horizontalPadding;
-  final double verticalPadding;
-
   final ScrollPhysics? physics;
-
-  final bool bottomSafeArea;
-  final bool topSafeArea;
+  
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
   const FillRemainingContainer({
     Key? key,
     required this.child,
-    this.hasScrollBody = false,
-    this.horizontalPadding = 16,
-    this.verticalPadding = 16,
-    this.physics,
-    this.bottomSafeArea = true,
-    this.topSafeArea = true,
+    this.padding,
+    this.hasScrollBody = false,    
+    this.physics,    
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual
   }) : super(key: key);
 
@@ -33,18 +27,9 @@ class FillRemainingContainer extends StatelessWidget {
       slivers: [
         SliverFillRemaining(
           hasScrollBody: hasScrollBody,
-          child: SafeArea(          
-            bottom: bottomSafeArea,  
-            top: topSafeArea,
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: horizontalPadding,
-                right: horizontalPadding,
-                top: verticalPadding,
-                bottom: verticalPadding
-              ),
-              child: child,
-            ),
+          child: Padding(
+            padding: padding ?? const EdgeInsets.all(0),
+            child: child,
           ),
         )
       ],
