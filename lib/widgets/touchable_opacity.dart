@@ -30,8 +30,7 @@ class _TouchableOpacityState extends State<TouchableOpacity> {
   } 
 
   @override
-  Widget build(BuildContext context) {
-    
+  Widget build(BuildContext context) {    
     return widget.onPressed != null
       ?  MouseRegion(
           cursor: SystemMouseCursors.click,
@@ -42,7 +41,10 @@ class _TouchableOpacityState extends State<TouchableOpacity> {
             onTap:  _handleOnTap,
             child: Opacity(
               opacity: _opacity,
-              child: widget.child
+              child: ColoredBox(
+                color: Colors.transparent,
+                child: widget.child
+              )
             ),
           ),
         )            
