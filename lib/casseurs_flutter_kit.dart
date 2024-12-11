@@ -18,6 +18,7 @@ export './utils/durations.dart';
 export './utils/geo.dart';
 export './utils/math.dart';
 export './utils/text_input_formaters.dart';
+export './utils/edge_insets.dart';
 
 ////////// WIDGETS ////////// 
 export './widgets/section_list_view.dart';
