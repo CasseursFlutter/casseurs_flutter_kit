@@ -18,15 +18,18 @@ class EdgeInsetsUtils {
 
   static EdgeInsets buildBottomSafeEdgeInsets(BuildContext context, { double? horizontal, double? vertical }) {
     final h = horizontal ?? 0;
-    final v = vertical ?? 0;
+    final v = vertical ?? 0;    
 
-    final mediaQuery = MediaQuery.of(context);  
-    final b = mediaQuery.padding.bottom + v;
+    return buildBottomSafeEdgeInsetsOnly(context, left: h, right: h, top: v, bottom: v);    
+  }
+
+  static EdgeInsets buildBottomSafeEdgeInsetsOnly(BuildContext context, { double left = 0, double top = 0, double right = 0, double bottom = 0 }) {
+    final mediaQuery = MediaQuery.of(context);      
 
     return EdgeInsets.only(
-      left: h, right: h,
-      top: v,
-      bottom: b
+      left: left, right: right,
+      top: top,
+      bottom: mediaQuery.padding.bottom + bottom
     );
   }
 }
