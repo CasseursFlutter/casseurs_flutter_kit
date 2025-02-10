@@ -16,15 +16,18 @@ class AlertDialogAction {
 Future<void> showAlertDialog({
   required BuildContext context,
   required String title,
-  dynamic? content,  
+  dynamic content,  
   List<AlertDialogAction>? actions,
-  Function(BuildContext context)? onBuild
+  Function(BuildContext context)? onBuild,
+  bool barrierDismissible = false,
+  bool dismissOnButtonClick = true
 }) async {
   final targetPlatform = Theme.of(context).platform;
   List<AlertDialogAction> actionList = actions ?? [AlertDialogAction()];
 
   if (targetPlatform == TargetPlatform.iOS) {
     return showCupertinoDialog(
+      barrierDismissible: barrierDismissible,
       context: context,
       builder: (context) {
         onBuild?.call(context);
@@ -38,8 +41,10 @@ Future<void> showAlertDialog({
           actions: actionList.map((action) => CupertinoDialogAction(
             child: Text(action.title),
             onPressed: () {
-              Navigator.of(context).pop();
-              if (action.onPressed != null) action.onPressed!();
+              if (dismissOnButtonClick) {
+                Navigator.of(context).pop();
+              }
+              action.onPressed?.call();
             },
             isDefaultAction: !action.isDesctructive,
             isDestructiveAction: action.isDesctructive,
@@ -50,7 +55,7 @@ Future<void> showAlertDialog({
   } else {
     return showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
         onBuild?.call(context);
         return AlertDialog(
@@ -58,8 +63,10 @@ Future<void> showAlertDialog({
           content: content != null ? Text(content) : null,
           actions: actionList.map((action) => TextButton(
             onPressed: () {
-              if(action.onPressed != null) action.onPressed!();
-              Navigator.of(context).pop();
+              action.onPressed?.call();
+              if (dismissOnButtonClick) {
+                Navigator.of(context).pop();
+              }
             },
             child: Text(
               action.title,
