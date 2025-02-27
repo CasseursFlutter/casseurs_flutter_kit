@@ -10,18 +10,22 @@ class FillRemainingContainer extends StatelessWidget {
   
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
+  final ScrollController? scrollController;
+
   const FillRemainingContainer({
     Key? key,
     required this.child,
     this.padding,
     this.hasScrollBody = false,    
     this.physics,    
-    this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual
+    this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
+    this.scrollController
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {        
     return CustomScrollView(
+      controller: scrollController
       keyboardDismissBehavior: keyboardDismissBehavior,
       physics: physics ?? const ClampingScrollPhysics(),
       slivers: [
