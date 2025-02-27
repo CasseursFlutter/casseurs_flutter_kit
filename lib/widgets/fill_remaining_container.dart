@@ -25,7 +25,7 @@ class FillRemainingContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {        
     return CustomScrollView(
-      controller: scrollController
+      controller: scrollController,
       keyboardDismissBehavior: keyboardDismissBehavior,
       physics: physics ?? const ClampingScrollPhysics(),
       slivers: [
